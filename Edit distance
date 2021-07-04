@@ -1,0 +1,89 @@
+/*
+    Author  : <<grenade24>>
+    Email   : << rakeshkusrivastav@gmail.com >>
+    "Everythings which takes effort to create give you smile too for a long time"
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int               long long
+#define pb                push_back
+#define ppb               pop_back
+#define pf                push_front
+#define ppf               pop_front
+#define all(x)            (x).begin(),(x).end()
+#define uniq(v)           (v).erase(unique(all(v)),(v).end())
+#define sz(x)             (int)((x).size())
+#define fi                first
+#define se                second
+#define pii               pair<int,int>
+#define rep(i,a,b)        for(int i=a;i<b;i++)
+#define mem1(a)           memset(a,-1,sizeof(a))
+#define mem0(a)           memset(a,0,sizeof(a))
+#define ppc               __builtin_popcount
+#define ppcll             __builtin_popcountll
+#define endl '\n'
+// const long long INF = 1e18;
+// const int32_t mod = 1e9 + 7;
+// const int32_t MM = 998244353;
+// Programming starts here
+
+
+int gcd(int a, int b) {
+	if (b == 0)
+		return a;
+	return gcd(b, a % b);
+}
+
+
+void solve() {
+
+	string s1 , s2;
+	cin >> s1 >> s2;
+
+	int n1 = s1.size();
+	int n2 = s2.size();
+
+	int dp[n1 + 1][n2 + 1];
+	mem0(dp);
+
+	for (int i = 1; i <= n1; ++i)
+	{
+		dp[i][0] = i;
+	}
+
+	for (int i = 1; i <= n2; ++i)
+	{
+		dp[0][i] = i;
+	}
+
+	for (int i = 1; i <= n1; ++i)
+	{
+		for (int j = 1; j <= n2; ++j)
+		{
+			if (s1[i - 1] == s2[j - 1])dp[i][j] = dp[i - 1][j - 1];
+			else {
+				int a = dp[i - 1][j - 1];
+				int b = dp[i - 1][j];
+				int c = dp[i][j - 1];
+				dp[i][j] = min(a, min(b, c)) + 1;
+			}
+		}
+	}
+
+
+	cout << dp[n1][n2] << endl;
+}
+
+
+
+signed main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0); cout.tie(0);
+
+	int t = 1 ;
+	// cin >> t;
+	while (t--) solve();
+	return 0;
+}
